@@ -1,0 +1,2042 @@
+/* ==========================================================================
+   IKASDA - Modern Edoo Academy & Education Theme
+   Fresh Mint-Emerald Palette, Clean Typography, and Dynamic CMS Admin System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+:root {
+  /* Edoo Theme Primary Colors (Mint & Emerald) */
+  --edoo-primary: #10b981;
+  --edoo-primary-dark: #059669;
+  --edoo-primary-deep: #047857;
+  --edoo-primary-light: #34d399;
+  --edoo-primary-soft: #ecfdf5;
+  --edoo-primary-tint: #d1fae5;
+  --edoo-accent-lime: #10b981;
+
+  /* Neutrals & Dark Slate */
+  --slate-950: #030712;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50:  #f8fafc;
+
+  /* Edoo Card & Backgrounds */
+  --bg-page: #ffffff;
+  --bg-soft: #f8fafc;
+  --bg-green-soft: #eafbf3;
+  --border-subtle: #e5e7eb;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 12px 30px rgba(16, 185, 129, 0.12);
+  --shadow-popup: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-pill: 9999px;
+
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-page);
+  color: var(--slate-800);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+
+/* ==========================================================================
+   EDOO TOP BAR & HEADER
+   ========================================================================== */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+
+
+.main-header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 86px;
+  gap: 1.5rem;
+}
+
+/* Brand Logo (Edoo style) */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.brand-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.brand-title span {
+  color: var(--edoo-primary);
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Category Dropdown & Search (Edoo style) */
+.header-search-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.category-dropdown-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.header-search-input {
+  border: none;
+  background: transparent;
+  font-size: 0.84rem;
+  color: var(--slate-800);
+  padding: 0.35rem 0.75rem;
+  outline: none;
+  width: 170px;
+}
+
+/* Desktop Menu Links */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.65rem 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--edoo-primary-dark);
+}
+
+.nav-link i.fa-chevron-down {
+  font-size: 0.7rem;
+  color: var(--slate-400);
+  transition: transform 0.2s ease;
+}
+
+.nav-item:hover .nav-link i.fa-chevron-down {
+  transform: rotate(180deg);
+  color: var(--edoo-primary);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-popup);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+  z-index: 100;
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  transition: all 0.2s ease;
+}
+
+.dropdown-item a:hover {
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-dark);
+  padding-left: 1.5rem;
+}
+
+.dropdown-item a i {
+  color: var(--edoo-primary);
+  width: 18px;
+}
+
+/* Nav Actions Right */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-edoo-primary {
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.45rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.btn-edoo-primary:hover {
+  background: var(--edoo-primary-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(5, 150, 105, 0.35);
+  color: #ffffff;
+}
+
+
+
+.mobile-toggle-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.45rem;
+  color: var(--slate-900);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   HERO SECTION & 2-SLIDE SYSTEM (Beranda Utama <-> Jajaran Pengasuh)
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  min-height: 580px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Floating Navigation Arrows */
+.hero-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #ffffff;
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  color: var(--slate-900);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-nav-arrow:hover {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #d97706;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 14px 35px rgba(217, 119, 6, 0.45);
+}
+
+.hero-nav-arrow.prev {
+  left: 24px;
+}
+
+.hero-nav-arrow.next {
+  right: 24px;
+  animation: heroPulseNext 3.5s infinite;
+}
+
+@keyframes heroPulseNext {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 0 0 0 0 rgba(217, 119, 6, 0.55);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 0 0 0 12px rgba(217, 119, 6, 0);
+  }
+}
+
+/* Individual Slides */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  padding: 4.5rem 0 4rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.55s ease-in-out, visibility 0.55s ease-in-out, transform 0.55s ease-in-out;
+  transform: scale(0.98);
+  z-index: 1;
+}
+
+.hero-slide.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Slide 1 Background (Full landscape mosque) */
+#heroSlide1 {
+  background-image: url('../img/hero-pesantren.jpg');
+  background-size: cover;
+  background-position: center 32%;
+  background-repeat: no-repeat;
+}
+
+/* Slide 2 Background (Masyayikh & Pengasuh with Pesantren Panorama) */
+#heroSlide2 {
+  background-color: #ffffff;
+  background-image: url('../img/jajaran-pengasuh.png');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.hero-mist-slide2 {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.97) 0%,
+    rgba(255, 255, 255, 0.88) 38%,
+    rgba(255, 255, 255, 0.50) 54%,
+    rgba(255, 255, 255, 0.15) 68%,
+    rgba(255, 255, 255, 0) 80%
+  ) !important;
+}
+
+/* Slide 3 Background (Munas & Silaturrahim Akbar IKASDA Ngesong) */
+#heroSlide3 {
+  background-color: #0f172a;
+  background-image: url('../img/munas-ikasda.jpg');
+  background-size: cover;
+  background-position: center 44%;
+  background-repeat: no-repeat;
+}
+
+.hero-mist-slide3 {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.97) 0%,
+    rgba(255, 255, 255, 0.90) 38%,
+    rgba(255, 255, 255, 0.50) 54%,
+    rgba(255, 255, 255, 0.12) 70%,
+    rgba(255, 255, 255, 0) 84%
+  ) !important;
+}
+
+/* Hero Grid */
+.hero-slide-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-spacer-col {
+  min-height: 380px;
+  pointer-events: none;
+}
+
+/* Arabic Subtitle on Slide 2 */
+.hero-arabic-sub {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.45rem;
+  color: #059669; /* Rich noble Islamic green on white */
+  margin-bottom: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Slide 2 Pengasuh Card */
+.hero-pengasuh-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-pengasuh-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08), 0 0 25px rgba(245, 158, 11, 0.2);
+  border: 2px solid rgba(251, 191, 36, 0.65);
+  background: #ffffff;
+  padding: 6px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 380px;
+  width: 100%;
+}
+
+.hero-pengasuh-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.14), 0 0 35px rgba(245, 158, 11, 0.35);
+}
+
+.hero-pengasuh-img {
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+  object-fit: contain;
+  border-radius: 14px;
+  display: block;
+}
+
+.hero-pengasuh-tag {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Pagination Dots */
+.hero-dots-container {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  z-index: 25;
+}
+
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(100, 116, 139, 0.35);
+  border: 1.5px solid rgba(100, 116, 139, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.hero-dot.active {
+  width: 32px;
+  border-radius: var(--radius-pill);
+  background: #d97706;
+  border-color: #d97706;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
+}
+
+/* Elegant Mist Overlay (like Commune de Valmont screenshot) */
+.hero-mist-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.90) 42%,
+    rgba(255, 255, 255, 0.65) 65%,
+    rgba(255, 255, 255, 0.20) 85%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-full-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.hero-content {
+  max-width: 660px;
+}
+
+.hero-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--edoo-primary-deep);
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.hero-heading {
+  font-size: 3.1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: #334155;
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+  font-weight: 500;
+  max-width: 620px;
+}
+
+/* Valmont Style Action Buttons (Orange Primary + White Outlined Secondary) */
+.hero-action-row {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-valmont-primary {
+  background: #d97706; /* Warm Amber Orange like Valmont */
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.85rem;
+  border-radius: 8px; /* Soft rectangular radius like Valmont */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.btn-valmont-primary:hover {
+  background: #b45309;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(217, 119, 6, 0.45);
+  color: #ffffff;
+}
+
+.btn-valmont-secondary {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 8px;
+  border: 1.5px solid #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(4px);
+}
+
+.btn-valmont-secondary:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Review Badge Box */
+.hero-reviews-badge {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  width: fit-content;
+}
+
+.review-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.review-stars {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 2px;
+}
+
+.review-text-main {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.1;
+}
+
+.review-subtext {
+  font-size: 0.74rem;
+  color: var(--slate-600);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3 FEATURE CARDS UNDER HERO (Edoo Screenshot)
+   ========================================================================== */
+.features-section {
+  position: relative;
+  margin-top: -3rem;
+  z-index: 10;
+  margin-bottom: 4.5rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-box {
+  background: #ffffff;
+  padding: 2rem 1.85rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-box:hover {
+  transform: translateY(-6px);
+  border-color: var(--edoo-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.feature-icon-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.35rem;
+  transition: all 0.3s ease;
+}
+
+.feature-box:hover .feature-icon-circle {
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.feature-box h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 0.65rem;
+  line-height: 1.3;
+}
+
+.feature-box p {
+  font-size: 0.9rem;
+  color: var(--slate-600);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   SECTION COMMON HEADER
+   ========================================================================== */
+.section-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.section-eyebrow {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--edoo-primary-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.section-heading-main {
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.section-link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--edoo-primary-dark);
+}
+
+.section-link-more:hover {
+  color: var(--edoo-primary-deep);
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   SECTION 1: PILIHAN JENJANG / CATEGORIES (Edoo Screenshot: Join 780+ Classes)
+   ========================================================================== */
+.categories-section {
+  padding: 4.5rem 0;
+  background: #ffffff;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.category-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--edoo-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.category-illustration {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--bg-green-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--edoo-primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.category-card h4 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 0.65rem;
+}
+
+.category-card p {
+  font-size: 0.9rem;
+  color: var(--slate-600);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.category-card .card-action-link {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--edoo-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.category-card .card-action-link:hover {
+  gap: 0.65rem;
+}
+
+/* ==========================================================================
+   SECTION 2: COMMUNITY EXPERIENCE & STATS BANNER (Edoo Screenshot)
+   ========================================================================== */
+.experience-section {
+  padding: 5rem 0;
+  background: var(--bg-soft);
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* Left: Collage of community faces */
+.community-faces-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.community-face-item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 130px;
+  box-shadow: var(--shadow-card);
+}
+
+.community-face-item.tall {
+  grid-column: span 2;
+  height: 180px;
+}
+
+.community-face-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.community-face-item:hover img {
+  transform: scale(1.08);
+}
+
+/* Right Content */
+.experience-text h3 {
+  font-size: 2.45rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.experience-text p.lead {
+  font-size: 1.05rem;
+  color: var(--slate-600);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.feature-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-point-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.feature-point-text h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 0.25rem;
+}
+
+.feature-point-text p {
+  font-size: 0.88rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+}
+
+/* Green Stats Banner (Edoo style) */
+.edoo-stats-banner {
+  margin-top: 2.5rem;
+  background: var(--edoo-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+}
+
+.stat-item-edoo h4 {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.stat-item-edoo p {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==========================================================================
+   PROFIL SECTION (Tabs for Pondok, IKASDA, Masyayikh)
+   ========================================================================== */
+.profile-section {
+  padding: 5rem 0;
+  background: #ffffff;
+}
+
+.edoo-tabs-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.edoo-tab-btn {
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edoo-tab-btn.active {
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  border-color: var(--edoo-primary-dark);
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+}
+
+.profile-tab-content {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.profile-tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.profile-img-frame {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+  border: 6px solid #ffffff;
+}
+
+.profile-img-frame img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   PENGURUS DARI MASA KE MASA
+   ========================================================================== */
+.pengurus-section {
+  padding: 5rem 0;
+  background: var(--bg-soft);
+}
+
+.period-pills-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.period-pill-btn {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  padding: 0.65rem 1.45rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.period-pill-btn.active {
+  background: var(--slate-900);
+  color: #ffffff;
+  border-color: var(--slate-900);
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+}
+
+.period-summary-strip {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.period-summary-strip h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.period-summary-strip p {
+  font-size: 0.88rem;
+  color: var(--slate-600);
+}
+
+.committee-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.committee-member-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.committee-member-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--edoo-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.committee-img-wrap {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.committee-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.committee-member-card:hover .committee-img-wrap img {
+  transform: scale(1.06);
+}
+
+.committee-tag-role {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.committee-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.committee-card-content h5 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 0.25rem;
+}
+
+.committee-card-content .batch-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--edoo-primary-deep);
+  margin-bottom: 0.5rem;
+}
+
+.committee-card-content p.prof {
+  font-size: 0.86rem;
+  color: var(--slate-600);
+  margin-bottom: 1rem;
+}
+
+.committee-card-content .quote-box {
+  margin-top: auto;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--slate-600);
+  background: var(--slate-50);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--edoo-primary);
+}
+
+/* ==========================================================================
+   AGENDA & BERITA (Edoo Course / News Cards)
+   ========================================================================== */
+.news-section {
+  padding: 5rem 0;
+  background: #ffffff;
+}
+
+.news-filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 2.75rem;
+  flex-wrap: wrap;
+}
+
+.news-pill-btn {
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  padding: 0.55rem 1.35rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.news-pill-btn.active {
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  border-color: var(--edoo-primary-dark);
+}
+
+.news-grid-edoo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.85rem;
+}
+
+.news-card-edoo {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card-edoo:hover {
+  transform: translateY(-6px);
+  border-color: var(--edoo-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.news-card-media {
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.news-card-edoo:hover .news-card-media img {
+  transform: scale(1.05);
+}
+
+.news-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #ffffff;
+  color: var(--edoo-primary-dark);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.news-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.news-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+  margin-bottom: 0.75rem;
+}
+
+.news-card-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card-snippet {
+  font-size: 0.88rem;
+  color: var(--slate-600);
+  line-height: 1.6;
+  margin-bottom: 1.35rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-read-link {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--edoo-primary-dark);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-read-link:hover {
+  gap: 0.65rem;
+  color: var(--edoo-primary-deep);
+}
+
+/* ==========================================================================
+   DAFTAR ALUMNI SECTION
+   ========================================================================== */
+.alumni-directory-section {
+  padding: 5rem 0;
+  background: var(--bg-soft);
+}
+
+.directory-filter-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.25rem;
+}
+
+.search-primary-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.search-field-pill {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+}
+
+.search-field-pill i {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-400);
+}
+
+.search-field-pill input {
+  width: 100%;
+  padding: 0.85rem 1.25rem 0.85rem 3rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-subtle);
+  background: var(--slate-50);
+  font-size: 0.94rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-field-pill input:focus {
+  background: #ffffff;
+  border-color: var(--edoo-primary);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+.dropdown-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-select-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select-input:focus {
+  border-color: var(--edoo-primary);
+}
+
+.view-toggle-group {
+  display: inline-flex;
+  background: var(--slate-100);
+  border-radius: var(--radius-md);
+  padding: 3px;
+}
+
+.view-toggle-item {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.view-toggle-item.active {
+  background: #ffffff;
+  color: var(--edoo-primary-dark);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+
+.alumni-cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.65rem;
+}
+
+.alumni-card-edoo {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  padding: 1.65rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.alumni-card-edoo:hover {
+  transform: translateY(-5px);
+  border-color: var(--edoo-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.alumni-head-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+}
+
+.alumni-avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--edoo-primary-tint);
+  flex-shrink: 0;
+}
+
+.alumni-head-info h5 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.alumni-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.pill-batch {
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.pill-nis {
+  font-size: 0.74rem;
+  color: var(--slate-400);
+  font-weight: 600;
+}
+
+.alumni-body-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  margin-bottom: 1.25rem;
+  color: var(--slate-600);
+  flex-grow: 1;
+}
+
+.alumni-detail-line {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.alumni-detail-line i {
+  color: var(--edoo-primary);
+  width: 16px;
+}
+
+.alumni-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+}
+
+.btn-action-sm {
+  font-size: 0.8rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  color: var(--slate-700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-action-sm:hover {
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-dark);
+  border-color: var(--edoo-primary);
+}
+
+.btn-action-sm.primary-sm {
+  background: var(--edoo-primary-dark);
+  color: #ffffff;
+  border-color: var(--edoo-primary-dark);
+}
+
+.btn-action-sm.primary-sm:hover {
+  background: var(--edoo-primary-deep);
+}
+
+/* ==========================================================================
+   FOOTER (Clean Edoo Dark Theme)
+   ========================================================================== */
+.edoo-footer {
+  background: var(--slate-950);
+  color: #94a3b8;
+  padding: 4.5rem 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-col h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.35rem;
+  position: relative;
+  padding-bottom: 0.45rem;
+}
+
+.footer-col h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 28px;
+  height: 3px;
+  background: var(--edoo-primary);
+  border-radius: var(--radius-pill);
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-links-list li a {
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+.footer-links-list li a:hover {
+  color: var(--edoo-primary-light);
+  padding-left: 4px;
+}
+
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.75rem;
+  font-size: 0.84rem;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ==========================================================================
+   ADMIN CMS DASHBOARD MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-modal-box {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-popup);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active .admin-modal-box {
+  transform: translateY(0);
+}
+
+.admin-modal-header {
+  padding: 1.5rem 2rem;
+  background: var(--slate-900);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.admin-modal-header h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.admin-modal-header h3 i {
+  color: var(--edoo-primary);
+}
+
+.modal-close-icon {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.modal-close-icon:hover {
+  background: #ef4444;
+}
+
+/* CMS Nav Tabs */
+.cms-tabs-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--slate-50);
+  overflow-x: auto;
+}
+
+.cms-tab-btn {
+  padding: 0.9rem 1.45rem;
+  border: none;
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--slate-600);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.cms-tab-btn.active {
+  color: var(--edoo-primary-dark);
+  border-bottom-color: var(--edoo-primary-dark);
+  background: #ffffff;
+}
+
+.cms-tab-panel {
+  display: none;
+  padding: 2rem;
+}
+
+.cms-tab-panel.active {
+  display: block;
+}
+
+/* CMS Forms */
+.cms-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.cms-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cms-form-group.full {
+  grid-column: 1 / -1;
+}
+
+.cms-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.cms-input, .cms-textarea, .cms-select {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-subtle);
+  font-size: 0.9rem;
+  color: var(--slate-900);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cms-input:focus, .cms-textarea:focus, .cms-select:focus {
+  border-color: var(--edoo-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.cms-actions-row {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* CMS Item List Cards */
+.cms-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.cms-list-table th {
+  background: var(--slate-50);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cms-list-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+
+
+/* Floating WhatsApp Button */
+.wa-float-circle {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+  z-index: 1500;
+  transition: all 0.3s ease;
+}
+
+.wa-float-circle:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-split-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-left-wrapper {
+    justify-content: center;
+    padding: 3.5rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  .hero-action-row, .hero-reviews-badge {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-slide-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+  .hero-slide2-motto-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-poster-card {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .hero-indicators-wrap {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 12px;
+  }
+  .hero-nav-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .hero-nav-arrow.prev { left: 8px; }
+  .hero-nav-arrow.next { right: 8px; }
+  .hero-right-media-full {
+    height: 440px;
+    min-height: 440px;
+  }
+  .hero-dual-grid, .hero-grid, .experience-grid, .profile-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .features-grid, .categories-grid, .committee-cards-grid, .news-grid-edoo, .alumni-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dropdown-filters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-search-group {
+    display: none;
+  }
+  .mobile-toggle-btn {
+    display: block;
+  }
+  .nav-menu {
+    position: fixed;
+    top: 86px;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    flex-direction: column;
+    padding: 1.5rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    max-height: calc(100vh - 86px);
+    overflow-y: auto;
+  }
+  .nav-menu.open {
+    transform: translateY(0);
+  }
+  .hero-heading {
+    font-size: 2.25rem;
+  }
+  .features-grid, .categories-grid, .committee-cards-grid, .news-grid-edoo, .alumni-cards-container {
+    grid-template-columns: 1fr;
+  }
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .cms-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .edoo-stats-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
