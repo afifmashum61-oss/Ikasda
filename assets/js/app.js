@@ -8,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Global Live Data from data.js
   let siteData = getSiteData();
-  let currentPeriodId = "periode-7";
+  let currentPeriodId = "periode-2021-2026";
   let activeViewMode = "grid";
   let currentNewsCategory = "all";
 
@@ -35,14 +35,49 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Mobile dropdown toggle handlers
+  document.querySelectorAll(".nav-item").forEach(item => {
+    const dropdown = item.querySelector(".dropdown-menu");
+    const link = item.querySelector(".nav-link");
+    if (dropdown && link) {
+      link.addEventListener("click", (e) => {
+        if (window.innerWidth <= 768) {
+          if (!item.classList.contains("dropdown-open")) {
+            e.preventDefault();
+            document.querySelectorAll(".nav-item.dropdown-open").forEach(other => {
+              if (other !== item) other.classList.remove("dropdown-open");
+            });
+            item.classList.add("dropdown-open");
+          }
+        }
+      });
+    }
+  });
+
   // Smooth scroll and active link highlighting
   document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (e) => {
+      const parentItem = link.closest(".nav-item");
+      const hasDropdown = parentItem && parentItem.querySelector(".dropdown-menu");
+      if (window.innerWidth <= 768 && hasDropdown && !parentItem.classList.contains("dropdown-open")) {
+        return;
+      }
       document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
       link.classList.add("active");
       if (navMenu?.classList.contains("open")) {
         navMenu.classList.remove("open");
       }
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("dropdown-open"));
+    });
+  });
+
+  // Dropdown items click handling
+  document.querySelectorAll(".dropdown-item a").forEach(dLink => {
+    dLink.addEventListener("click", () => {
+      if (navMenu?.classList.contains("open")) {
+        navMenu.classList.remove("open");
+      }
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("dropdown-open"));
     });
   });
 
@@ -182,8 +217,42 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =========================================================================
-  // 3. PENGURUS DARI MASA KE MASA (Interactive Timeline)
+  // 3. KETUA & PENGURUS IKASDA DARI MASA KE MASA (Interactive Timeline)
   // =========================================================================
+  window.switchPeriod = function(periodId, e) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    currentPeriodId = periodId;
+    renderPeriodsTimeline();
+
+    // Set active class on Ketua Ikasda nav-link
+    document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+    const ketuaLink = document.getElementById("navLinkKetua");
+    if (ketuaLink) ketuaLink.classList.add("active");
+
+    // Close mobile nav drawer if open
+    if (navMenu && navMenu.classList.contains("open")) {
+      navMenu.classList.remove("open");
+    }
+    document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("dropdown-open"));
+
+    // Smooth scroll to #pengurus
+    const targetSection = document.getElementById("pengurus");
+    if (targetSection) {
+      const headerOffset = 85;
+      const elementPosition = targetSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      if (history.pushState) {
+        history.pushState(null, null, "#pengurus");
+      }
+    }
+  };
+
   function renderPeriodsTimeline() {
     siteData = getSiteData();
     const pillsContainer = document.getElementById("periodPillsContainer");
@@ -193,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const btn = document.createElement("button");
         btn.className = `period-pill-btn ${p.id === currentPeriodId ? 'active' : ''}`;
         btn.setAttribute("data-period", p.id);
-        btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> ${p.name}`;
+        btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> ${p.periodYears || p.name} ${p.isCurrent ? '<span style="font-size:0.75rem; background: var(--edoo-primary-dark); color: #fff; padding: 2px 7px; border-radius: 99px; margin-left: 4px;">Aktif</span>' : ''}`;
         btn.addEventListener("click", () => {
           currentPeriodId = p.id;
           renderPeriodsTimeline();
@@ -202,7 +271,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    const currentPeriod = siteData.periods.find(p => p.id === currentPeriodId) || siteData.periods[0];
+    // Synchronize active state in the navbar dropdown
+    const dropdownLinks = document.querySelectorAll("#ketuaDropdownMenu .dropdown-item a");
+    dropdownLinks.forEach(link => {
+      const pId = link.getAttribute("data-period");
+      if (pId === currentPeriodId) {
+        link.classList.add("active-period-item");
+      } else {
+        link.classList.remove("active-period-item");
+      }
+    });
+
+    const currentPeriod = siteData.periods.find(p => p.id === currentPeriodId) || siteData.periods[siteData.periods.length - 1];
     if (!currentPeriod) return;
 
     const bannerTitle = document.getElementById("periodLeadTitle");
@@ -210,7 +290,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const bannerTag = document.getElementById("periodLeadTag");
     if (bannerTitle) bannerTitle.textContent = `${currentPeriod.name} — ${currentPeriod.lead}`;
     if (bannerDesc) bannerDesc.textContent = `Tema Kepengurusan: ${currentPeriod.theme}`;
-    if (bannerTag) bannerTag.textContent = currentPeriod.tag;
+    if (bannerTag) {
+      bannerTag.textContent = currentPeriod.tag;
+      bannerTag.style.background = currentPeriod.isCurrent ? "var(--edoo-primary-dark)" : "var(--slate-700)";
+    }
 
     const committeeGrid = document.getElementById("committeeCardsGrid");
     if (committeeGrid) {

@@ -244,10 +244,10 @@ button, input, select, textarea {
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 250px;
+  min-width: 230px;
   background: #ffffff;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-popup);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   border: 1px solid var(--border-subtle);
   padding: 0.5rem 0;
   list-style: none;
@@ -255,13 +255,17 @@ button, input, select, textarea {
   visibility: hidden;
   transform: translateY(8px);
   transition: all 0.25s ease;
-  z-index: 100;
+  z-index: 1000;
+  pointer-events: none;
 }
 
-.nav-item:hover .dropdown-menu {
+.nav-item:hover .dropdown-menu,
+.nav-item:focus-within .dropdown-menu,
+.nav-item.dropdown-open .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .dropdown-item a {
@@ -284,6 +288,23 @@ button, input, select, textarea {
 .dropdown-item a i {
   color: var(--edoo-primary);
   width: 18px;
+}
+
+.dropdown-item a.active-period-item {
+  background: var(--edoo-primary-soft);
+  color: var(--edoo-primary-dark);
+  font-weight: 700;
+  border-left: 3px solid var(--edoo-primary);
+}
+
+.badge-mini-active {
+  margin-left: auto;
+  background: var(--edoo-primary-tint);
+  color: var(--edoo-primary-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-pill);
 }
 
 /* Nav Actions Right */
@@ -2022,6 +2043,34 @@ button, input, select, textarea {
   }
   .nav-menu.open {
     transform: translateY(0);
+  }
+  .nav-item {
+    width: 100%;
+  }
+  .nav-link {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.75rem 0.5rem;
+  }
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid var(--edoo-primary-light);
+    border-radius: var(--radius-sm);
+    background: var(--slate-50);
+    margin: 0.35rem 0 0.5rem 0.75rem;
+    padding: 0.35rem 0;
+    display: none;
+  }
+  .nav-item.dropdown-open .dropdown-menu {
+    display: block;
+  }
+  .nav-item.dropdown-open .nav-link i.fa-chevron-down {
+    transform: rotate(180deg);
   }
   .hero-heading {
     font-size: 2.25rem;

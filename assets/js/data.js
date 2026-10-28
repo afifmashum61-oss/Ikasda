@@ -95,8 +95,133 @@ const DEFAULT_IKASDA_DATA = {
   // Periods & Committees from Era to Era (Editable by Admin)
   periods: [
     {
-      id: "periode-7",
-      name: "Periode VII (2024 - 2028)",
+      id: "periode-2002-2005",
+      name: "Periode 2002 - 2005",
+      periodYears: "2002-2005",
+      tag: "Perintis",
+      isCurrent: false,
+      theme: "Peletakan Pondasi Organisasi & Musyawarah Silaturahmi Alumni Perdana",
+      lead: "KH. Muhammad Dahlan (Alm.)",
+      members: [
+        {
+          id: "mem-01",
+          role: "Ketua Presidium Perintis",
+          name: "KH. Muhammad Dahlan (Alm.)",
+          batch: "Alumni Generasi Pertama (1975)",
+          profession: "Ulama & Perintis Majelis Alumni",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+          phone: "-",
+          quote: "Pondok Ngesong adalah rumah ruhani kita. Jangan pernah lupakan tempat kita belajar sujud dan membaca Al-Qur'an."
+        },
+        {
+          id: "mem-02",
+          role: "Sekretaris Perintis",
+          name: "KH. M. Yusuf Hasyim",
+          batch: "Alumni 1978",
+          profession: "Tokoh Pesantren & Perumus Piagam Alumni",
+          avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
+          phone: "-",
+          quote: "Memulai dengan niat suci merekatkan persaudaraan santri demi ridho guru dan masyayikh."
+        }
+      ]
+    },
+    {
+      id: "periode-2005-2010",
+      name: "Periode 2005 - 2010",
+      periodYears: "2005-2010",
+      tag: "Purna Tugas",
+      isCurrent: false,
+      theme: "Pengembangan Jaringan Silaturahmi & Pemberdayaan Potensi Alumni",
+      lead: "KH. M. Sholeh Qosim",
+      members: [
+        {
+          id: "mem-41",
+          role: "Ketua Umum",
+          name: "KH. M. Sholeh Qosim",
+          batch: "Alumni 1984",
+          profession: "Ulama, Tokoh Masyarakat & Pengusaha Santri",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 812-7788-9900",
+          quote: "Santri harus mandiri, berilmu amaliah dan beramal ilmiah dalam mengabdi pada kemaslahatan umat."
+        },
+        {
+          id: "mem-42",
+          role: "Sekretaris",
+          name: "H. Ahmad Subakir, M.Pd.I",
+          batch: "Alumni 1988",
+          profession: "Dosen & Tokoh Pendidikan Agama",
+          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 815-6677-8899",
+          quote: "Menghimpun segenap potensi alumni untuk berkontribusi nyata bagi almamater tercinta."
+        }
+      ]
+    },
+    {
+      id: "periode-2010-2015",
+      name: "Periode 2010 - 2015",
+      periodYears: "2010-2015",
+      tag: "Purna Tugas",
+      isCurrent: false,
+      theme: "Perluasan Koordinator Daerah (Korda) & Konsolidasi Kelembagaan",
+      lead: "KH. Abdul Wahid, M.H.I.",
+      members: [
+        {
+          id: "mem-51",
+          role: "Ketua Umum",
+          name: "KH. Abdul Wahid, M.H.I.",
+          batch: "Alumni 1989",
+          profession: "Pengasuh Pondok & Dosen Syariah",
+          avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 812-8877-6655",
+          quote: "Ikatlah ilmu dengan mengajarkannya, dan ikatlah persaudaraan santri dengan silaturahmi yang ikhlas."
+        },
+        {
+          id: "mem-52",
+          role: "Sekretaris",
+          name: "Drs. H. Imron Rosyadi",
+          batch: "Alumni 1992",
+          profession: "Pendidik & Aktivis Sosial Kemasyarakatan",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 813-2233-4455",
+          quote: "Membangun jejaring alumni yang solid dan berdaya di seluruh penjuru daerah."
+        }
+      ]
+    },
+    {
+      id: "periode-2015-2021",
+      name: "Periode 2015 - 2021",
+      periodYears: "2015-2021",
+      tag: "Demisioner",
+      isCurrent: false,
+      theme: "Ketahanan Santri di Masa Pandemi & Sinergi Lintas Komunitas",
+      lead: "H. Syamsul Huda, S.Ag., M.Si.",
+      members: [
+        {
+          id: "mem-61",
+          role: "Ketua Umum",
+          name: "H. Syamsul Huda, S.Ag., M.Si.",
+          batch: "Alumni 1994",
+          profession: "Birokrat Kemenag & Tokoh Pendidikan",
+          avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 811-9988-7766",
+          quote: "Kekuatan alumni adalah ketulusan doa dan kepedulian terhadap adik-adik santri yang sedang berjuang."
+        },
+        {
+          id: "mem-62",
+          role: "Sekretaris Umum",
+          name: "H. Mahfudz Sholihin, S.Pd.I.",
+          batch: "Alumni 1999",
+          profession: "Kepala Madrasah & Pegiat Pendidikan",
+          avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+          phone: "+62 812-3344-5566",
+          quote: "Organisasi alumni adalah jembatan berkah antara ilmu santri dan pengabdian nyata di masyarakat."
+        }
+      ]
+    },
+    {
+      id: "periode-2021-2026",
+      name: "Periode 2021 - 2026",
+      periodYears: "2021-2026",
       tag: "Kepengurusan Aktif",
       isCurrent: true,
       theme: "Digitalisasi Alumni, Kemandirian Ekonomi, & Penguatan Sanad Masyayikh",
@@ -161,76 +286,6 @@ const DEFAULT_IKASDA_DATA = {
           avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
           phone: "+62 878-9900-5511",
           quote: "Merawat komunikasi dengan setiap alumni dari Sabang sampai Merauke dan luar negeri."
-        }
-      ]
-    },
-    {
-      id: "periode-6",
-      name: "Periode VI (2020 - 2024)",
-      tag: "Demisioner",
-      isCurrent: false,
-      theme: "Ketahanan Santri di Masa Pandemi & Penguatan Basis Komunitas",
-      lead: "H. Syamsul Huda, S.Ag., M.Si.",
-      members: [
-        {
-          id: "mem-61",
-          role: "Ketua Umum",
-          name: "H. Syamsul Huda, S.Ag., M.Si.",
-          batch: "Alumni 1994",
-          profession: "Birokrat Kemenag & Tokoh Pendidikan",
-          avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
-          phone: "+62 811-9988-7766",
-          quote: "Kekuatan alumni adalah ketulusan doa dan kepedulian terhadap adik-adik santri yang sedang berjuang."
-        },
-        {
-          id: "mem-62",
-          role: "Sekretaris",
-          name: "H. Mahfudz Sholihin, S.Pd.I.",
-          batch: "Alumni 1999",
-          profession: "Kepala Madrasah & Pegiat Pendidikan",
-          avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
-          phone: "+62 812-3344-5566",
-          quote: "Organisasi alumni adalah jembatan berkah antara ilmu santri dan pengabdian nyata di masyarakat."
-        }
-      ]
-    },
-    {
-      id: "periode-5",
-      name: "Periode V (2016 - 2020)",
-      tag: "Purna Tugas",
-      isCurrent: false,
-      theme: "Perluasan Koordinator Daerah & Konsolidasi Kelembagaan",
-      lead: "KH. Abdul Wahid, M.H.I.",
-      members: [
-        {
-          id: "mem-51",
-          role: "Ketua Umum",
-          name: "KH. Abdul Wahid, M.H.I.",
-          batch: "Alumni 1989",
-          profession: "Pengasuh Pondok & Dosen Syariah",
-          avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
-          phone: "+62 812-8877-6655",
-          quote: "Ikatlah ilmu dengan mengajarkannya, dan ikatlah persaudaraan santri dengan silaturahmi yang ikhlas."
-        }
-      ]
-    },
-    {
-      id: "periode-perintis",
-      name: "Masa Perintis (1985 - 2016)",
-      tag: "Perintis",
-      isCurrent: false,
-      theme: "Penyusunan AD/ART & Peletakan Dasar Paguyuban Alumni",
-      lead: "KH. Muhammad Dahlan & Sesepuh Alumni",
-      members: [
-        {
-          id: "mem-01",
-          role: "Ketua Presidium Perintis",
-          name: "KH. Muhammad Dahlan (Alm.)",
-          batch: "Alumni Generasi Pertama (1975)",
-          profession: "Ulama & Perintis Majelis Alumni",
-          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-          phone: "-",
-          quote: "Pondok Ngesong adalah rumah ruhani kita. Jangan pernah lupakan tempat kita belajar sujud dan membaca Al-Qur'an."
         }
       ]
     }
@@ -411,7 +466,7 @@ const DEFAULT_IKASDA_DATA = {
       phone: "0812-3411-9988",
       email: "zainul.muttaqin@iaibafa.ac.id",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-      bio: "Ketua Umum IKASDA 2024-2028. Doktor di bidang Manajemen Pendidikan Islam dan pegiat riset kurikulum pesantren.",
+      bio: "Ketua Umum IKASDA 2021-2026. Doktor di bidang Manajemen Pendidikan Islam dan pegiat riset kurikulum pesantren.",
       advice: "Ijazah pondok adalah amanah kebaikan. Di mana pun kamu berada, sebarkan ilmu dengan penuh keramahan."
     },
     {

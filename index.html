@@ -6,8 +6,8 @@
   <title>IKASDA - Portal Dinamis Alumni & Santri Pondok Pesantren Darussalam Ngesong Jombang</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Portal Resmi Dinamis IKASDA (Ikatan Alumni & Santri Pondok Pesantren Darussalam Ngesong Jombang). Direktori alumni, profil pesantren, pengurus masa ke masa, serta agenda & berita.">
-  <meta name="keywords" content="IKASDA, Darussalam Ngesong Jombang, Alumni Pesantren Darussalam, Santri Ngesong, Portal Alumni">
+  <meta name="description" content="Portal Resmi Dinamis IKASDA (Ikatan Alumni & Santri Pondok Pesantren Darussalam Ngesong Jombang). Direktori alumni, profil pesantren, ketua ikasda masa ke masa, serta agenda & berita.">
+  <meta name="keywords" content="IKASDA, Darussalam Ngesong Jombang, Ketua IKASDA, Alumni Pesantren Darussalam, Santri Ngesong, Portal Alumni">
   <meta name="author" content="Pengurus Pusat IKASDA">
   
   <!-- Favicon -->
@@ -78,7 +78,36 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#pengurus" class="nav-link">Pengurus Masa ke Masa</a>
+          <a href="#pengurus" class="nav-link" id="navLinkKetua">
+            Ketua Ikasda <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu" id="ketuaDropdownMenu">
+            <li class="dropdown-item">
+              <a href="#pengurus" data-period="periode-2002-2005" onclick="window.switchPeriod('periode-2002-2005', event);">
+                <i class="fa-solid fa-calendar-days"></i> 2002-2005
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#pengurus" data-period="periode-2005-2010" onclick="window.switchPeriod('periode-2005-2010', event);">
+                <i class="fa-solid fa-calendar-days"></i> 2005-2010
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#pengurus" data-period="periode-2010-2015" onclick="window.switchPeriod('periode-2010-2015', event);">
+                <i class="fa-solid fa-calendar-days"></i> 2010-2015
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#pengurus" data-period="periode-2015-2021" onclick="window.switchPeriod('periode-2015-2021', event);">
+                <i class="fa-solid fa-calendar-days"></i> 2015-2021
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#pengurus" data-period="periode-2021-2026" onclick="window.switchPeriod('periode-2021-2026', event);">
+                <i class="fa-solid fa-calendar-check"></i> 2021-2026 <span class="badge-mini-active">Aktif</span>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a href="#agenda-berita" class="nav-link">Agenda & Berita</a>
@@ -532,7 +561,7 @@
       <div class="section-header-wrap">
         <div>
           <div class="section-eyebrow"><i class="fa-solid fa-clock-rotate-left"></i> Kepemimpinan Lintas Masa</div>
-          <h2 class="section-heading-main">Pengurus Dari Masa Ke Masa</h2>
+          <h2 class="section-heading-main">Ketua IKASDA Dari Masa Ke Masa</h2>
         </div>
       </div>
 
@@ -544,7 +573,7 @@
       <!-- Current Period Banner -->
       <div class="period-summary-strip">
         <div>
-          <h4 id="periodLeadTitle">Periode VII (2024 - 2028) - Dr. H. M. Zainul Muttaqin, M.Pd.I</h4>
+          <h4 id="periodLeadTitle">Periode 2021 - 2026 — Dr. H. M. Zainul Muttaqin, M.Pd.I</h4>
           <p id="periodLeadTheme">Tema Kepengurusan: Digitalisasi Alumni, Kemandirian Ekonomi, & Penguatan Sanad Masyayikh</p>
         </div>
         <span class="pill-batch" id="periodLeadTag" style="background: var(--edoo-primary-dark); color: #ffffff; padding: 0.4rem 1rem; font-size: 0.82rem;">Kepengurusan Aktif</span>
@@ -714,7 +743,7 @@
           <ul class="footer-links-list">
             <li><a href="#beranda">Beranda</a></li>
             <li><a href="#profil">Profil Pesantren & IKASDA</a></li>
-            <li><a href="#pengurus">Pengurus Masa ke Masa</a></li>
+            <li><a href="#pengurus">Ketua IKASDA Masa ke Masa</a></li>
             <li><a href="#agenda-berita">Agenda & Berita</a></li>
             <li><a href="#daftar-alumni">Direktori Alumni</a></li>
           </ul>
