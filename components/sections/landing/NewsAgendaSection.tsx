@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { notFound } from 'next/navigation';
 import { 
   Calendar, 
   Clock, 
@@ -72,6 +73,10 @@ export default function NewsAgendaSection() {
 
   const featuredNews = beritaData.find((item) => item.featured) || beritaData[0];
   const regularNews = filteredNews.filter((item) => item.id !== featuredNews.id);
+
+  if (!featuredNews) {
+    notFound();
+  }
 
   return (
     <section id="agenda-berita" className="relative w-full bg-slate-50 py-20 lg:py-28 dark:bg-zinc-950">

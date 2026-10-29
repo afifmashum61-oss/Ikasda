@@ -69,10 +69,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: lang === "ID" ? "Beranda" : "Home", href: "/" },
-    { name: lang === "ID" ? "Profil" : "Profile", href: "#profil" },
-    { name: lang === "ID" ? "Pengurus" : "Management", href: "#pengurus" },
-    { name: lang === "ID" ? "Agenda & Berita" : "News & Events", href: "#agenda-berita" },
-    { name: lang === "ID" ? "Daftar Alumni" : "Directory", href: "#daftar-alumni" },
+    { name: lang === "ID" ? "Profil" : "Profile", href: "/profile" },
+    { name: lang === "ID" ? "Pengurus" : "Management", href: "/pengurus" },
+    { name: lang === "ID" ? "Agenda & Berita" : "News & Events", href: "/agenda" },
+    { name: lang === "ID" ? "Daftar Alumni" : "Directory", href: "/daftar-alumni" },
   ];
 
   const featureGridItems = [
