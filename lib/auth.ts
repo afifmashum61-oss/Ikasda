@@ -1,4 +1,5 @@
 ﻿import NextAuth from "next-auth";
+import { DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 interface UserWithRole {
@@ -7,6 +8,17 @@ interface UserWithRole {
   email: string;
   role: string;
 }
+declare module "next-auth" {
+  interface User {
+    role?: string;
+  }
+  interface Session {
+    user: {
+      role?: string;
+    } & DefaultSession["user"];
+  }
+}
+
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -58,7 +70,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as UserWithRole).role = token.role as string;
+        (session.user as unknown as UserWithRole).role = token.role as string;
       }
       return session;
     },
