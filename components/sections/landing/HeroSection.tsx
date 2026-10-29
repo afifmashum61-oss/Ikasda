@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/app/providers";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -11,11 +12,16 @@ import {
   ArrowRight 
 } from "lucide-react";
 
+  
+
 const slides = [
   {
     id: 1,
     badge: "PORTAL RESMI IKASDA DARUSSALAM NGESONG",
-    title: "Sinergi Alumni & Santri Untuk Kemajuan Umat",
+    title: {
+      ID: "Wadah Silaturahmi, Kolaborasi, & Akselerasi Potensi Alumni",
+      EN: "A Hub for Alumni Networking, Collaboration, and Potential Acceleration",
+    },
     description:
       "Wadah silaturahmi, kolaborasi keilmuan, dan akselerasi potensi ribuan alumni serta santri Pondok Pesantren Darussalam Ngesong Jombang di seluruh dunia.",
     bgImage: "/assets/img/hero-pesantren.jpg",
@@ -27,7 +33,10 @@ const slides = [
   {
     id: 2,
     badge: "JARINGAN ALUMNI GLOBAL",
-    title: "Mempererat Ukhuwah & Kemandirian Ekonomi",
+    title: {
+      ID: "Terhubung dengan Ribuan Alumni dari Berbagai Profesi & Daerah",
+      EN: "Connect with Thousands of Alumni from Various Professions & Regions",
+    },
     description:
       "Terhubung dengan ribuan alumni dari berbagai profesi dan daerah untuk menciptakan peluang usaha, karir, dan pengabdian masyarakat.",
     bgImage: "/assets/img/hero-pesantren.jpg",
@@ -39,6 +48,7 @@ const slides = [
 ];
 
 export default function HeroSection() {
+  const { lang } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Auto-slide setiap 6 detik
@@ -139,7 +149,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6 }}
                 className="mt-5 text-4xl font-extrabold leading-[1.18] tracking-tight text-slate-900 sm:text-5xl dark:text-white"
               >
-                {slides[currentSlide].title}
+                {lang === "ID" ? slides[currentSlide].title.ID : slides[currentSlide].title.EN}
               </motion.h1>
 
               {/* Deskripsi */}
