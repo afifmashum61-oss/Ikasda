@@ -1,71 +1,69 @@
-"use client";
+﻿'use client';
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ProfileSection() {
-  const [activeTab, setActiveTab] = useState<"tab-pondok" | "tab-ikasda">("tab-pondok");
+  const [activeTab, setActiveTab] = useState<'tab-pondok' | 'tab-ikasda'>('tab-pondok');
 
   return (
-    <section className="py-20 container mx-auto px-6 lg:px-16" id="profil">
+    <section className="relative min-h-[600px] w-full overflow-hidden bg-slate-200 py-16 lg:py-24" id="profil">
       <div className="text-center max-w-2xl mx-auto">
         <span className="text-xs font-bold text-edoo-primary uppercase tracking-wider">Tentang Kami</span>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">Profil Pesantren & IKASDA</h2>
       </div>
 
-      {/* Tab Navigasi */}
       <div className="mt-8 flex justify-center gap-2 border-b border-slate-200 pb-4">
         <button
-          onClick={() => setActiveTab("tab-pondok")}
+          type="button"
+          onClick={() => setActiveTab('tab-pondok')}
           className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all ${
-            activeTab === "tab-pondok"
-              ? "bg-edoo-primary text-white shadow-md"
-              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            activeTab === 'tab-pondok'
+              ? 'bg-edoo-primary text-white shadow-md'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
           }`}
         >
           <i className="fa-solid fa-mosque"></i> Profil Pondok Pesantren
         </button>
+
         <button
-          onClick={() => setActiveTab("tab-ikasda")}
+          type="button"
+          onClick={() => setActiveTab('tab-ikasda')}
           className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all ${
-            activeTab === "tab-ikasda"
-              ? "bg-edoo-primary text-white shadow-md"
-              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            activeTab === 'tab-ikasda'
+              ? 'bg-edoo-primary text-white shadow-md'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
           }`}
         >
           <i className="fa-solid fa-users"></i> Profil IKASDA
         </button>
       </div>
 
-      {/* Konten Tab */}
-      <div className="mt-8 bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-        {activeTab === "tab-pondok" ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="relative h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-200">
-              <img src="/assets/img/hero-pesantren.jpg" alt="Pesantren Darussalam" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-slate-900">Pondok Pesantren Darussalam Ngesong Jombang</h3>
-              <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                Didirikan pada tahun 1968 oleh <strong>KH. Sholeh Abdul Wahid</strong> bersama Nyai Hj. Masruroh. Pesantren memadukan kurikulum salafiyah kajian kitab kuning dengan pendidikan formal modern.
+      <div className="mt-8">
+        {activeTab === 'tab-pondok' && (
+          <div className="flex flex-col items-center gap-6 lg:flex-row">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-slate-900">Pondok Pesantren Darussalam Ngesong</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Pondok Pesantren Darussalam Ngesong adalah lembaga pendidikan Islam yang berfokus pada pengembangan ilmu agama dan karakter santri. Didirikan dengan tujuan mencetak generasi yang berakhlak mulia, berilmu, dan siap menghadapi tantangan zaman.
               </p>
-              <div className="mt-6 border-l-4 border-edoo-primary bg-edoo-soft p-4 rounded-r-xl">
-                <h5 className="text-xs font-bold text-edoo-dark uppercase">Visi Utama:</h5>
-                <p className="mt-1 text-xs text-slate-700 italic">
-                  "Terwujudnya insan santri yang bertafaqquh fiddin, unggul dalam keilmuan, serta berakhlaqul karimah."
-                </p>
-              </div>
+            </div>
+            <div className="flex-1">
+              <Image src="/assets/img/pondok.jpg" alt="Pondok Pesantren Darussalam Ngesong" width={400} height={300} className="rounded-xl object-cover" />
             </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="relative h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-200">
-              <img src="/assets/img/alumni-gathering.jpg" alt="Gathering IKASDA" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-slate-900">IKASDA: Wadah Silaturahmi Santri</h3>
-              <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                Menjadi tempat bernaung bagi 5.400+ alumni dengan slogan <em>"Santri Sak Lawase, Khidmah Tanpa Batas"</em>.
+        )}
+
+        {activeTab === 'tab-ikasda' && (
+          <div className="flex flex-col items-center gap-6 lg:flex-row">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-slate-900">IKASDA (Ikatan Alumni Santri Darussalam)</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                IKASDA adalah organisasi resmi yang menghubungkan alumni Pondok Pesantren Darussalam Ngesong. Organisasi ini bertujuan untuk memperkuat jaringan alumni, mendukung pengembangan karier, dan berkontribusi pada kemajuan pesantren serta masyarakat luas.
               </p>
+            </div>
+            <div className="flex-1">
+              <Image src="/assets/img/ikasda.jpg" alt="IKASDA" width={400} height={300} className="rounded-xl object-cover" />
             </div>
           </div>
         )}

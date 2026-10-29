@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,10 +36,9 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 font-sans">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-slate-200">
-        {/* Header */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2">
-            <img src="/assets/img/logo-ikasda.png" alt="IKASDA" className="h-10 w-auto" />
+            <Image src="/assets/img/logo-ikasda.png" alt="IKASDA" width={40} height={40} className="h-10 w-auto" />
             <span className="text-xl font-extrabold text-slate-900">
               IKASDA <span className="text-edoo-primary">JOMBANG</span>
             </span>
@@ -47,14 +47,12 @@ export default function LoginPage() {
           <p className="mt-1 text-xs text-slate-500">Silakan masukkan akun alumni Anda</p>
         </div>
 
-        {/* Error Alert */}
         {error && (
           <div className="mt-4 rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-600 border border-red-200">
             {error}
           </div>
         )}
 
-        {/* Form Login */}
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-700">Email Alumni</label>
@@ -89,12 +87,12 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-xs text-slate-500">
+        {/* <div className="mt-6 text-center text-xs text-slate-500">
           Belum terdaftar?{" "}
           <Link href="/#daftar-alumni" className="font-bold text-edoo-primary hover:underline">
             Daftar Alumni
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

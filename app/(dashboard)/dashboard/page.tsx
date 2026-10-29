@@ -1,7 +1,7 @@
-// app/(dashboard)/dashboard/page.tsx
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import { auth, signOut } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 async function DashboardContent() {
   const session = await auth();
@@ -12,10 +12,9 @@ async function DashboardContent() {
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      {/* Top Bar Dashboard */}
       <header className="bg-white border-b border-slate-200 py-4 px-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/assets/img/logo-ikasda.png" alt="IKASDA" className="h-8 w-auto" />
+          <Image src="/assets/img/logo-ikasda.png" alt="IKASDA" width={32} height={32} className="h-8 w-auto" />
           <h1 className="font-extrabold text-slate-900 text-base">Dashboard Alumni</h1>
         </div>
         <div className="flex items-center gap-4">
@@ -38,10 +37,8 @@ async function DashboardContent() {
         </div>
       </header>
 
-      {/* Main Content Dashboard */}
       <main className="container mx-auto p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Status KTA */}
           <div className="bg-gradient-to-br from-edoo-deep to-edoo-primary rounded-2xl p-6 text-white shadow-md">
             <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">
               KTA Digital Resmi
@@ -56,7 +53,6 @@ async function DashboardContent() {
             </div>
           </div>
 
-          {/* Quick Stats */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
             <h4 className="text-xs font-bold text-slate-400 uppercase">Informasi Korda</h4>
             <p className="text-lg font-extrabold text-slate-900 mt-2">Korda Surabaya Raya</p>

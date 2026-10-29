@@ -1,5 +1,8 @@
+﻿// app/layout.tsx
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,7 +10,7 @@ export const metadata: Metadata = {
   description: "Portal Resmi Dinamis IKASDA Pondok Pesantren Darussalam Ngesong Jombang",
   icons: {
     icon: "/assets/img/logo-ikasda.png",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -22,10 +25,13 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
-        <link rel="icon" href="/assets/img/logo-ikasda.png" type="image/x-icon" />
       </head>
-      <body>
-        <SessionProvider>{children}</SessionProvider>
+      <body className="flex min-h-screen flex-col bg-slate-50 font-sans text-slate-900">
+        <SessionProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

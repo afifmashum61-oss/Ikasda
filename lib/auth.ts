@@ -1,7 +1,12 @@
-// lib/auth.ts
-import NextAuth from "next-auth";
+﻿import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
+
+interface UserWithRole {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -12,47 +17,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // if (!credentials?.email || !credentials?.password) return null;
-
-        // lib/auth.ts
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
         const mockUser = {
           id: "1",
           name: "Ahmad Syarifuddin",
           email: "alumni@ikasda.org",
-          password: "password123", // Password asli (untuk tujuan demo)
+          password: "password123",
           role: "alumni",
         };
 
-        // if (credentials.email !== mockUser.email) return null;
-
-        // // Verifikasi enkripsi password
-        // const isValid = await bcrypt.compare(
-        //   credentials.password as string,
-        //   mockUser.passwordHash
-        // );
-
-        // if (!isValid) return null;
-
-        // Cek email dan password langsung
         if (
-          credentials.email === "alumni@ikasda.org" &&
-          credentials.password === "password123"
+          credentials.email === mockUser.email &&
+          credentials.password === mockUser.password
         ) {
           return {
-            id: "1",
-            name: "Ahmad Syarifuddin",
-            email: "alumni@ikasda.org",
-            role: "alumni",
-          };
+            id: mockUser.id,
+            name: mockUser.name,
+            email: mockUser.email,
+            role: mockUser.role,
+          } as UserWithRole;
         }
 
-        return {
-          id: mockUser.id,
-          name: mockUser.name,
-          email: mockUser.email,
-          role: mockUser.role,
-        };
+        return null;
       },
     }),
   ],
@@ -62,11 +51,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = (user as any).role;
+      if (user) {
+        token.role = (user as UserWithRole).role;
+      }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) (session.user as any).role = token.role;
+      if (session.user) {
+        (session.user as UserWithRole).role = token.role as string;
+      }
       return session;
     },
   },
