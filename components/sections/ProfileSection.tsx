@@ -49,7 +49,7 @@ export default function ProfileSection() {
               </p>
             </div>
             <div className="flex-1">
-              <Image src="/assets/img/pondok.jpg" alt="Pondok Pesantren Darussalam Ngesong" width={400} height={300} className="rounded-xl object-cover" />
+              <Image src="/assets/img/santri-belajar.jpg" alt="Pondok Pesantren Darussalam Ngesong" width={400} height={300} className="rounded-xl object-cover" />
             </div>
           </div>
         )}
