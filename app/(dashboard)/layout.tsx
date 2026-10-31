@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Sidebar from "@/components/admin/sidebar";
+import Sidebar from "@/components/admin/AdminSidebar";
 import DashboardNavbar from "@/components/admin/DashboardNavbar";
 
 export default async function DashboardLayout({
