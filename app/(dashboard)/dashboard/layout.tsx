@@ -12,13 +12,15 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  // Proteksi: Wajib login & Wajib Role ADMIN
   if (!session) {
     redirect("/login");
   }
 
-  if (session.user?.role !== "ADMIN") {
-    redirect("/"); // Lempar balik ke Landing Page jika bukan Admin
+  // Type assertion untuk mengamankan pembacaan role
+  const userRole = (session.user as { role?: string })?.role;
+
+  if (userRole !== "ADMIN") {
+    redirect("/");
   }
 
   return (
