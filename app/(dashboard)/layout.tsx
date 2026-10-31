@@ -1,9 +1,11 @@
 // app/(dashboard)/layout.tsx
-import Image from "next/image";
-import Link from "next/link";
+export const dynamic = 'force-dynamic';
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Sidebar from "@/components/admin/sidebar";
+import DashboardNavbar from "@/components/admin/DashboardNavbar";
 
 export default async function DashboardLayout({
   children,
@@ -16,40 +18,17 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  const userName = session.user?.name || "Alumni";
+  const userName = session?.user?.name || "Alumni";
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-white border-b border-slate-200 py-4 px-8 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Image
-            src="/assets/img/logo-ikasda.png"
-            alt="IKASDA"
-            width={32}
-            height={32}
-            className="h-8 w-auto"
-            priority
-          />
-          <h1 className="font-extrabold text-slate-900 text-base">
-            Dashboard Alumni
-          </h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-semibold text-slate-700">
-            Halo, <strong className="text-edoo-primary">{userName}</strong>
-          </span>
-          <Link
-            href="/api/auth/signout"
-            className="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-200 transition-colors"
-          >
-            Keluar
-          </Link>
-        </div>
-      </header>
-
-      <main className="container mx-auto p-8">
-        {children}
-      </main>
+    <div className="min-h-screen bg-slate-100 font-sans flex flex-col">
+      <DashboardNavbar userName={userName} />
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 p-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
