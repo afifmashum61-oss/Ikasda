@@ -1,7 +1,7 @@
 // app/providers.tsx
 'use client';
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, Suspense } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 type Language = "ID" | "EN";
@@ -25,7 +25,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
       <LanguageContext.Provider value={{ lang, setLang }}>
-        {children}
+        <Suspense fallback={null}>
+          {children}
+        </Suspense>
       </LanguageContext.Provider>
     </NextThemesProvider>
   );
