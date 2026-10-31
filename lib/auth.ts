@@ -1,26 +1,15 @@
-﻿import NextAuth from "next-auth";
-import { DefaultSession } from "next-auth";
+﻿// lib/auth.ts
+import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs"; // Jika Anda meng-hash password
 
-interface UserWithRole {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-declare module "next-auth" {
-  interface User {
-    role?: string;
-  }
-  interface Session {
-    user: {
-      role?: string;
-    } & DefaultSession["user"];
-  }
-}
-
-
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma) as any,
+  session: {
+    strategy: "jwt", // Gunakan JWT strategy jika menggunakan Credentials provider
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -33,47 +22,51 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        const mockUser = {
-          id: "1",
-          name: "Ahmad Syarifuddin",
-          email: "alumni@ikasda.org",
-          password: "password123",
-          role: "alumni",
-        };
+        // Cari user di PostgreSQL via Prisma
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
 
-        if (
-          credentials.email === mockUser.email &&
-          credentials.password === mockUser.password
-        ) {
-          return {
-            id: mockUser.id,
-            name: mockUser.name,
-            email: mockUser.email,
-            role: mockUser.role,
-          } as UserWithRole;
+        if (!user || !user.password) {
+          return null;
         }
 
-        return null;
+        // Verifikasi password (asumsi menggunakan bcrypt)
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        };
       },
     }),
   ],
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as UserWithRole).role;
+        token.id = user.id;
+        token.role = (user as any).role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as unknown as UserWithRole).role = token.role as string;
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role;
       }
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "super-secret-key-ikasda-2026",
-});
+  pages: {
+    signIn: "/login",
+  },
+};
