@@ -1,5 +1,4 @@
 // app/(dashboard)/dashboard/pengurus/page.tsx
-export const dynamic = 'force-dynamic';
 
 export default function PengurusPage() {
   const listPengurus = [

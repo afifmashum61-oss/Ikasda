@@ -1,6 +1,4 @@
 // app/(dashboard)/dashboard/agenda/page.tsx
-export const dynamic = 'force-dynamic';
-
 export default function AgendaPage() {
   const agendas = [
     { id: 1, title: "Reuni Akbar IKASDA 2026", date: "15 November 2026", location: "Surabaya", status: "Mendatang" },
