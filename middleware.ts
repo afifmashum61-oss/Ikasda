@@ -1,4 +1,3 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
@@ -8,7 +7,7 @@ export default withAuth(
     const isAuth = !!token;
     const isAuthPage = req.nextUrl.pathname.startsWith("/login");
 
-    // Jika pengguna sudah login dan mencoba mengakses halaman /login, redirect ke /dashboard
+    // Jika pengguna sudah login dan membuka /login, lempar ke /dashboard
     if (isAuthPage) {
       if (isAuth) {
         return NextResponse.redirect(new URL("/dashboard", req.url));
@@ -16,36 +15,30 @@ export default withAuth(
       return null;
     }
 
-    // Jika pengguna belum login dan mengakses halaman terproteksi
+    // Jika belum login dan mengakses halaman terproteksi
     if (!isAuth) {
-      let from = req.nextUrl.pathname;
-      if (req.nextUrl.search) {
-        from += req.nextUrl.search;
-      }
-
-      return NextResponse.redirect(
-        new URL(`/login?from=${encodeURIComponent(from)}`, req.url)
-      );
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   },
   {
     callbacks: {
       authorized({ token }) {
-        // Mengembalikan true jika token ada (user sudah terautentikasi)
         return !!token;
       },
     },
   }
 );
 
-// Tentukan rute/halaman mana saja yang memerlukan autentikasi
+// Matcher yang aman: Kecualikan /api/auth, _next, dan file statis
 export const config = {
   matcher: [
-    "/dashboard/:path*",
-    "/agenda/:path*",
-    "/pengurus/:path*",
-    "/profile/:path*",
-    "/search/:path*",
-    "/login",
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api/auth (NextAuth endpoints)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, assets, images
+     */
+    "/((?!api/auth|_next/static|_next/image|favicon.ico|assets).*)",
   ],
 };
