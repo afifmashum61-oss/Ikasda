@@ -3,12 +3,29 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs"; // Jika Anda meng-hash password
+import bcrypt from "bcryptjs";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
   session: {
-    strategy: "jwt", // Gunakan JWT strategy jika menggunakan Credentials provider
+    strategy: "jwt",
+  },
+  // Konfigurasi cookie agar terdeteksi dengan benar di balik Reverse Proxy (HTTPS)
+  useSecureCookies: isProduction,
+  cookies: {
+    sessionToken: {
+      name: isProduction
+        ? `__Secure-next-auth.session-token`
+        : `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: isProduction,
+      },
+    },
   },
   providers: [
     CredentialsProvider({
@@ -31,7 +48,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Verifikasi password (asumsi menggunakan bcrypt)
+        // Verifikasi password dengan bcrypt
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
           user.password
@@ -69,4 +86,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
