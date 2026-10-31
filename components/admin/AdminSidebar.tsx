@@ -7,10 +7,10 @@ import { useLanguage } from "@/app/providers";
 
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: "📊" },
-  { name: "Profile Alumni", href: "/profile", icon: "👤" },
-  { name: "Agenda", href: "/agenda", icon: "📅" },
-  { name: "Data Pengurus", href: "/pengurus", icon: "👥" },
-  { name: "Pencarian", href: "/search", icon: "🔍" },
+  { name: "Profile Alumni", href: "/dashboard/profile", icon: "👤" },
+  { name: "Agenda", href: "/dashboard/agenda", icon: "📅" },
+  { name: "Data Pengurus", href: "/dashboard/pengurus", icon: "👥" },
+  { name: "Pencarian", href: "/dashboard/search", icon: "🔍" },
 ];
 
 export default function Sidebar() {
