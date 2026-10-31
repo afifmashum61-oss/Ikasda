@@ -25,7 +25,7 @@ export default function Sidebar() {
         </div>
         <nav className="mt-2 space-y-1">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
