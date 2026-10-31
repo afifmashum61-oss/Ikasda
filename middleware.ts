@@ -35,10 +35,6 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/dashboard/:path*",
-    "/agenda/:path*",
-    "/pengurus/:path*",
-    "/profile/:path*",
-    "/search/:path*",
     "/login",
   ],
 };
