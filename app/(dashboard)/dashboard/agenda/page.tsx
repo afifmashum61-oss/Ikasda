@@ -1,24 +1,79 @@
 // app/(dashboard)/dashboard/agenda/page.tsx
-export default function AgendaPage() {
-  const agendas = [
-    { id: 1, title: "Reuni Akbar IKASDA 2026", date: "15 November 2026", location: "Surabaya", status: "Mendatang" },
-    { id: 2, title: "Kajian Rutin Alumni", date: "05 Desember 2026", location: "Online (Zoom)", status: "Mendatang" },
-  ];
+"use client";
+
+import { useState } from "react";
+
+export default function InputAgendaPage() {
+  const [form, setForm] = useState({ title: "", date: "", location: "", description: "" });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const res = await fetch("/api/admin/agenda", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.success) {
+      setMessage("✅ Agenda Berhasil Diterbitkan!");
+      setForm({ title: "", date: "", location: "", description: "" });
+    } else {
+      setMessage("❌ Gagal menyimpan agenda");
+    }
+  };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-extrabold text-slate-900">Agenda Alumni</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {agendas.map((agenda) => (
-          <div key={agenda.id} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-            <span className="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full">
-              {agenda.status}
-            </span>
-            <h3 className="text-base font-extrabold text-slate-900 mt-3">{agenda.title}</h3>
-            <p className="text-xs text-slate-500 mt-1">📅 {agenda.date} | 📍 {agenda.location}</p>
-          </div>
-        ))}
-      </div>
+    <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm max-w-xl">
+      <h2 className="text-base font-extrabold text-slate-900 border-b pb-3 mb-4">Input Agenda Baru</h2>
+      {message && <p className="mb-4 text-xs font-bold p-3 rounded-xl bg-slate-100">{message}</p>}
+
+      <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+        <div>
+          <label className="font-bold text-slate-600 block mb-1">Judul Agenda</label>
+          <input
+            type="text"
+            required
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            className="w-full border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-emerald-500"
+          />
+        </div>
+        <div>
+          <label className="font-bold text-slate-600 block mb-1">Tanggal Pelaksanaan</label>
+          <input
+            type="text"
+            placeholder="Contoh: 15 November 2026"
+            required
+            value={form.date}
+            onChange={(e) => setForm({ ...form, date: e.target.value })}
+            className="w-full border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-emerald-500"
+          />
+        </div>
+        <div>
+          <label className="font-bold text-slate-600 block mb-1">Lokasi</label>
+          <input
+            type="text"
+            required
+            value={form.location}
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            className="w-full border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-emerald-500"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-emerald-600 text-white font-bold p-3 rounded-xl hover:bg-emerald-700 transition-colors"
+        >
+          {loading ? "Menyimpan..." : "Terbitkan Agenda"}
+        </button>
+      </form>
     </div>
   );
 }

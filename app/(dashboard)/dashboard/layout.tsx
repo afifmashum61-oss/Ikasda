@@ -12,18 +12,21 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession(authOptions);
 
+  // Proteksi: Wajib login & Wajib Role ADMIN
   if (!session) {
     redirect("/login");
   }
 
-  const userName = session?.user?.name || "Alumni";
+  if (session.user?.role !== "ADMIN") {
+    redirect("/"); // Lempar balik ke Landing Page jika bukan Admin
+  }
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans flex flex-col">
-      <DashboardNavbar userName={userName} />
+      <DashboardNavbar userName={session.user?.name || "Admin"} />
       <div className="flex flex-1">
         <Sidebar />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 max-w-6xl">
           {children}
         </main>
       </div>
