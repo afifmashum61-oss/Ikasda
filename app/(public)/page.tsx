@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <div>
         <HeroSection />
-        <ProfileSection />
+        {/* <ProfileSection />
         <ManagementSection />
         <NewsAgendaSection />
-        <DirectorySection />
+        <DirectorySection /> */}
     </div>
   );
 }
