@@ -37,10 +37,12 @@ export default function Navbar() {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isLayananOpen, setIsLayananOpen] = useState(false);
+  const [isProfileListOpen, setIsProfileListOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const categoryRef = useRef<HTMLDivElement>(null);
   const layananRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -51,6 +53,9 @@ export default function Navbar() {
       }
       if (layananRef.current && !layananRef.current.contains(event.target as Node)) {
         setIsLayananOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileListOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -64,15 +69,51 @@ export default function Navbar() {
       setIsMobileMenuOpen(false);
       setIsCategoryOpen(false);
       setIsLayananOpen(false);
+      setIsProfileListOpen(false);
     }
   };
 
   const navLinks = [
     { name: lang === "ID" ? "Beranda" : "Home", href: "/" },
-    { name: lang === "ID" ? "Profil" : "Profile", href: "/profile" },
+    // { name: lang === "ID" ? "Profil" : "Profile", href: "/profile" },
     { name: lang === "ID" ? "Pengurus" : "Management", href: "/pengurus" },
     { name: lang === "ID" ? "Agenda & Berita" : "News & Events", href: "/agenda" },
     { name: lang === "ID" ? "Daftar Alumni" : "Directory", href: "/daftar-alumni" },
+  ];
+
+  const featureGridProfieItems = [
+    {
+      title: lang === "ID" ? "Sejarah Pesantren" : "Pesantren History",
+      desc: lang === "ID" ? "Sejarah, visi misi, dan struktur organisasi" : "History, vision & mission, and organizational structure",
+      icon: BookOpen,
+      href: "/profile/sejarah-pondok",
+      badge: "Baru"
+    },
+    {
+      title: lang === "ID" ? "Sejarah IKASDA" : "IKASDA History",
+      desc: lang === "ID" ? "Sejarah, visi misi, dan struktur organisasi" : "History, vision & mission, and organizational structure",
+      icon: Building2,
+      href: "/profile/sejarah-ikasda",
+    },
+    {
+      title: lang === "ID" ? "Struktur IKASDA" : "IKASDA Structure",
+      desc: lang === "ID" ? "Struktur kepengurusan IKASDA pusat & daerah" : "IKASDA central & regional management structure",
+      icon: CalendarDays,
+      href: "/profile/struktur",
+    },
+    {
+      title: lang === "ID" ? "Tugas & Fungsi" : "Roles & Functions",
+      desc: lang === "ID" ? "Tugas, fungsi, dan program kerja IKASDA" : "Roles, functions, and work programs of IKASDA",
+      icon: Briefcase,
+      href: "/profile/tugas-fungsi",
+    },
+    {
+      title: lang === "ID" ? "Ketua Tiap Periode" : "Chairman Each Period",
+      desc: lang === "ID" ? "Daftar ketua IKASDA dari periode ke periode" : "List of IKASDA chairmen from period to period",
+      icon: HeartHandshake,
+      href: "/profile/ketua-tiap-periode",
+      badge: "Populer",
+    }
   ];
 
   const featureGridItems = [
@@ -228,6 +269,70 @@ export default function Navbar() {
             );
           })}
 
+          <div className="relative" ref={profileRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsProfileListOpen(!isProfileListOpen);
+                setIsLayananOpen(false);
+              }}
+              className={`flex items-center gap-1.5 py-2 transition-colors duration-200 ${
+                isProfileListOpen
+                  ? "text-amber-600 dark:text-amber-500"
+                  : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
+              }`}
+            >
+              <Grid className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500" />
+              <span>{lang === "ID" ? "Profil" : "Profile"}</span>
+              <ChevronDown className={`h-3 w-3 transition-transform duration-300 ${isProfileListOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {/* Profile Dropdown */}
+            <AnimatePresence>
+              {isProfileListOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="absolute right-0 top-full mt-3 w-56 rounded-3xl border border-slate-200 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
+                >
+                  <div className="grid grid-cols-1 gap-2.5">
+                    {featureGridProfieItems.map((item, idx) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link
+                          key={idx}
+                          href={item.href}
+                          onClick={() => setIsProfileListOpen(false)}
+                          className="group relative flex items-start gap-3 rounded-2xl border border-slate-100 bg-slate-50/50 p-3 transition-all duration-200 hover:border-amber-500/50 hover:bg-amber-50/50 dark:border-zinc-800/80 dark:bg-zinc-800/40 dark:hover:border-amber-500/40 dark:hover:bg-amber-950/30"
+                        >
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                            <Icon className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                                {item.title}
+                              </h4>
+                              {item.badge && (
+                                <span className="rounded-full bg-amber-500/20 px-1.5 py-0.2 text-[8px] font-extrabold text-amber-700 dark:text-amber-400">
+                                  {item.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="mt-0.5 text-[10px] leading-snug text-slate-500 dark:text-zinc-400 line-clamp-2">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           {/* ACCORDION MEGA MENU DROPDOWN (Rapi & Tidak Bertumpuk) */}
           <div className="relative" ref={layananRef}>
             <button
