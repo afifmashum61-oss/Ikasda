@@ -23,7 +23,8 @@ import {
   HeartHandshake,
   HelpCircle,
   Sparkles,
-  Grid
+  Grid,
+  UserCheck
 } from "lucide-react";
 
 export default function Navbar() {
@@ -73,15 +74,7 @@ export default function Navbar() {
     }
   };
 
-  const navLinks = [
-    { name: lang === "ID" ? "Beranda" : "Home", href: "/" },
-    // { name: lang === "ID" ? "Profil" : "Profile", href: "/profile" },
-    { name: lang === "ID" ? "Pengurus" : "Management", href: "/pengurus" },
-    { name: lang === "ID" ? "Agenda & Berita" : "News & Events", href: "/agenda" },
-    { name: lang === "ID" ? "Daftar Alumni" : "Directory", href: "/daftar-alumni" },
-  ];
-
-  const featureGridProfieItems = [
+  const featureGridProfileItems = [
     {
       title: lang === "ID" ? "Sejarah Pesantren" : "Pesantren History",
       desc: lang === "ID" ? "Sejarah, visi misi, dan struktur organisasi" : "History, vision & mission, and organizational structure",
@@ -91,7 +84,7 @@ export default function Navbar() {
     },
     {
       title: lang === "ID" ? "Sejarah IKASDA" : "IKASDA History",
-      desc: lang === "ID" ? "Sejarah, visi misi, dan struktur organisasi" : "History, vision & mission, and organizational structure",
+      desc: lang === "ID" ? "Sejarah, visi misi, dan perjalanan IKASDA" : "History, vision & mission, and IKASDA journey",
       icon: Building2,
       href: "/profile/sejarah-ikasda",
     },
@@ -157,6 +150,8 @@ export default function Navbar() {
     },
   ];
 
+  const isProfileActive = pathname.startsWith('/profile');
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/95 transition-colors">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 lg:px-8">
@@ -193,6 +188,7 @@ export default function Navbar() {
               onClick={() => {
                 setIsCategoryOpen(!isCategoryOpen);
                 setIsLayananOpen(false);
+                setIsProfileListOpen(false);
               }}
               className="flex items-center gap-1.5 border-r border-slate-300 pr-2.5 text-xs font-bold text-slate-700 hover:text-amber-600 dark:border-zinc-700 dark:text-zinc-200 dark:hover:text-amber-500 transition-colors"
             >
@@ -246,48 +242,49 @@ export default function Navbar() {
 
         {/* Main Navigation Links */}
         <nav className="hidden items-center gap-5 xl:gap-6 text-xs font-bold lg:flex">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+          {/* 1. Beranda / Home */}
+          <Link
+            href="/"
+            className={`relative py-2 transition-colors duration-200 ${
+              pathname === '/' 
+                ? "text-amber-600 dark:text-amber-500" 
+                : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
+            }`}
+          >
+            {lang === "ID" ? "Beranda" : "Home"}
+            <span
+              className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
+                pathname === '/' ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+              }`}
+            />
+          </Link>
 
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative py-2 transition-colors duration-200 ${
-                  isActive 
-                    ? "text-amber-600 dark:text-amber-500" 
-                    : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
-                }`}
-              >
-                {link.name}
-                <span
-                  className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
-                    isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
-                  }`}
-                />
-              </Link>
-            );
-          })}
-
+          {/* 2. Profil (Dropdown Memanjang Mega-Menu) */}
           <div className="relative" ref={profileRef}>
             <button
               type="button"
               onClick={() => {
                 setIsProfileListOpen(!isProfileListOpen);
                 setIsLayananOpen(false);
+                setIsCategoryOpen(false);
               }}
-              className={`flex items-center gap-1.5 py-2 transition-colors duration-200 ${
-                isProfileListOpen
+              className={`relative flex items-center gap-1.5 py-2 transition-colors duration-200 ${
+                isProfileListOpen || isProfileActive
                   ? "text-amber-600 dark:text-amber-500"
                   : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
               }`}
             >
-              <Grid className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500" />
+              <UserCheck className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500" />
               <span>{lang === "ID" ? "Profil" : "Profile"}</span>
               <ChevronDown className={`h-3 w-3 transition-transform duration-300 ${isProfileListOpen ? "rotate-180" : ""}`} />
+              <span
+                className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
+                  isProfileActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+                }`}
+              />
             </button>
 
-            {/* Profile Dropdown */}
+            {/* Profile Mega-Menu Dropdown */}
             <AnimatePresence>
               {isProfileListOpen && (
                 <motion.div
@@ -295,10 +292,20 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute right-0 top-full mt-3 w-56 rounded-3xl border border-slate-200 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
+                  className="absolute left-1/2 -translate-x-1/2 xl:-left-20 xl:translate-x-0 top-full mt-3 w-[480px] sm:w-[520px] rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
                 >
-                  <div className="grid grid-cols-1 gap-2.5">
-                    {featureGridProfieItems.map((item, idx) => {
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3 dark:border-zinc-800">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-500 flex items-center gap-1.5">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      {lang === "ID" ? "Tentang & Struktur Organisasi" : "About & Organizational Structure"}
+                    </span>
+                    <span className="text-[10px] text-slate-400 dark:text-zinc-500">
+                      IKASDA Profile
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {featureGridProfileItems.map((item, idx) => {
                       const Icon = item.icon;
                       return (
                         <Link
@@ -333,26 +340,67 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </div>
-          {/* ACCORDION MEGA MENU DROPDOWN (Rapi & Tidak Bertumpuk) */}
+
+          {/* 3. Agenda & Berita */}
+          <Link
+            href="/agenda"
+            className={`relative py-2 transition-colors duration-200 ${
+              pathname.startsWith('/agenda')
+                ? "text-amber-600 dark:text-amber-500" 
+                : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
+            }`}
+          >
+            {lang === "ID" ? "Agenda & Berita" : "News & Events"}
+            <span
+              className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
+                pathname.startsWith('/agenda') ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+              }`}
+            />
+          </Link>
+
+          {/* 4. Daftar Alumni */}
+          <Link
+            href="/daftar-alumni"
+            className={`relative py-2 transition-colors duration-200 ${
+              pathname.startsWith('/daftar-alumni')
+                ? "text-amber-600 dark:text-amber-500" 
+                : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
+            }`}
+          >
+            {lang === "ID" ? "Daftar Alumni" : "Directory"}
+            <span
+              className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
+                pathname.startsWith('/daftar-alumni') ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+              }`}
+            />
+          </Link>
+
+          {/* 5. Layanan Portal (Mega-Menu Dropdown)} */}
           <div className="relative" ref={layananRef}>
             <button
               type="button"
               onClick={() => {
                 setIsLayananOpen(!isLayananOpen);
+                setIsProfileListOpen(false);
                 setIsCategoryOpen(false);
               }}
-              className={`flex items-center gap-1.5 py-2 transition-colors duration-200 ${
+              className={`relative flex items-center gap-1.5 py-2 transition-colors duration-200 ${
                 isLayananOpen
                   ? "text-amber-600 dark:text-amber-500"
                   : "text-slate-700 hover:text-amber-600 dark:text-zinc-300 dark:hover:text-amber-500"
               }`}
             >
               <Grid className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500" />
-              <span>{lang === "ID" ? "Layanan Portal" : "Services"}</span>
+              <span>{lang === "ID" ? "Layanan Portal" : "Portal Services"}</span>
               <ChevronDown className={`h-3 w-3 transition-transform duration-300 ${isLayananOpen ? "rotate-180" : ""}`} />
+              <span
+                className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-amber-600 dark:bg-amber-500 transition-all duration-300 ease-in-out ${
+                  isLayananOpen ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+                }`}
+              />
             </button>
 
-            {/* Mega Menu Popup Container */}
+            {/* Layanan Mega-Menu Dropdown */}
             <AnimatePresence>
               {isLayananOpen && (
                 <motion.div
@@ -360,15 +408,15 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute right-0 xl:-right-20 top-full mt-3 w-[480px] sm:w-[520px] rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
+                  className="absolute left-1/2 -translate-x-1/2 xl:-left-20 xl:translate-x-0 top-full mt-3 w-[480px] sm:w-[520px] rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3 dark:border-zinc-800">
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-500 flex items-center gap-1.5">
                       <Sparkles className="h-3.5 w-3.5" />
-                      {lang === "ID" ? "Fitur & Fasilitas Portal" : "Portal Features & Services"}
+                      {lang === "ID" ? "Fitur & Layanan Portal" : "Portal Features & Services"}
                     </span>
                     <span className="text-[10px] text-slate-400 dark:text-zinc-500">
-                      IKASDA Hub
+                      IKASDA Portal
                     </span>
                   </div>
 
@@ -410,122 +458,133 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Controls: Theme + Language Controls */}
-        <div className="flex items-center gap-2.5">
-          
-          {/* Light / Dark Mode Toggle */}
-          {mounted && (
-            <button
-              type="button"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle Theme"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition-all hover:border-amber-500 hover:text-amber-600 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-amber-500 dark:hover:text-amber-400"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4 text-amber-400" />
-              ) : (
-                <Moon className="h-4 w-4 text-slate-600" />
-              )}
-            </button>
-          )}
+        {/* Right Side Controls */}
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 transition-colors"
+            aria-label="Toggle Theme"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
 
-          {/* Language Switcher */}
-          <div className="relative">
+          {/* Language Toggle */}
+          <div className="relative" ref={categoryRef}>
             <button
-              type="button"
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-2 text-xs font-bold text-slate-700 transition-all hover:border-amber-500 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 transition-colors"
+              aria-label="Toggle Language"
             >
-              <Globe className="h-3.5 w-3.5 text-amber-600 dark:text-amber-500" />
-              <span>{lang}</span>
-              <ChevronDown className="h-3 w-3 text-slate-400" />
+              <Globe className="h-4 w-4" />
             </button>
 
-            {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-28 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl dark:border-zinc-800 dark:bg-zinc-900 z-50">
-                <button
-                  onClick={() => { setLang("ID"); setIsLangOpen(false); }}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                    lang === "ID" ? "bg-amber-50 text-amber-800 dark:bg-amber-950/80 dark:text-amber-400" : "text-slate-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-                  }`}
+            {/* Language Dropdown */}
+            <AnimatePresence>
+              {isLangOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute right-0 mt-2 w-24 rounded-xl border border-slate-200 bg-white shadow-lg dark:border-zinc-800 dark:bg-zinc-900 z-50"
                 >
-                  <span>Bahasa</span>
-                  <span className="text-[10px] font-extrabold uppercase">ID</span>
-                </button>
-                <button
-                  onClick={() => { setLang("EN"); setIsLangOpen(false); }}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                    lang === "EN" ? "bg-amber-50 text-amber-800 dark:bg-amber-950/80 dark:text-amber-400" : "text-slate-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-                  }`}
-                >
-                  <span>English</span>
-                  <span className="text-[10px] font-extrabold uppercase">EN</span>
-                </button>
-              </div>
-            )}
+                  <button
+                    onClick={() => { setLang("ID"); setIsLangOpen(false); }}
+                    className={`w-full px-4 py-2 text-sm text-left ${lang === "ID" ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400" : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"} transition-colors`}
+                  >
+                    Indonesia
+                  </button>
+                  <button
+                    onClick={() => { setLang("EN"); setIsLangOpen(false); }}
+                    className={`w-full px-4 py-2 text-sm text-left ${lang === "EN" ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400" : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"} transition-colors`}
+                  >
+                    English
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Mobile Menu Toggle */}
           <button
-            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-700 lg:hidden dark:border-zinc-800 dark:text-zinc-200"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 transition-colors lg:hidden"
+            aria-label="Toggle Mobile Menu"
           >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
-
         </div>
       </div>
 
-      {/* Mobile Menu Area */}
-      {isMobileMenuOpen && (
-        <div className="border-b border-slate-200 bg-white p-4 lg:hidden dark:border-zinc-800 dark:bg-zinc-900">
-          <form onSubmit={handleSearch} className="mb-4 flex items-center rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 dark:border-zinc-800 dark:bg-zinc-800">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={lang === "ID" ? "Cari di portal..." : "Search portal..."}
-              className="w-full bg-transparent text-xs text-slate-800 dark:text-zinc-100 outline-none"
-            />
-            <button type="submit" className="text-slate-400">
-              <Search className="h-4 w-4" />
-            </button>
-          </form>
-
-          <nav className="flex flex-col gap-2 text-xs font-bold">
-            {navLinks.map((link) => (
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="lg:hidden border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
+          >
+            <div className="flex flex-col gap-1 p-4">
               <Link
-                key={link.href}
-                href={link.href}
+                href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="rounded-xl px-3 py-2.5 text-slate-700 hover:bg-amber-50 hover:text-amber-600 dark:text-zinc-200 dark:hover:bg-amber-950/40"
+                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  pathname === '/'
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                }`}
               >
-                {link.name}
+                {lang === "ID" ? "Beranda" : "Home"}
               </Link>
-            ))}
-
-            <div className="mt-2 border-t border-slate-100 pt-2 dark:border-zinc-800">
-              <div className="px-3 py-1 text-[10px] font-extrabold uppercase text-amber-600">
-                {lang === "ID" ? "Layanan Portal" : "Services"}
-              </div>
-              <div className="grid grid-cols-1 gap-1 mt-1">
-                {featureGridItems.map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-slate-600 hover:bg-amber-50 hover:text-amber-600 dark:text-zinc-300 dark:hover:bg-amber-950/40"
-                  >
-                    <item.icon className="h-4 w-4 text-amber-600 shrink-0" />
-                    <span>{item.title}</span>
-                  </Link>
-                ))}
-              </div>
+              <Link
+                href="/profile"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  pathname.startsWith('/profile')
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                }`}
+              >
+                {lang === "ID" ? "Profil" : "Profile"}
+              </Link>
+              <Link
+                href="/agenda"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  pathname.startsWith('/agenda')
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                }`}
+              >
+                {lang === "ID" ? "Agenda & Berita" : "News & Events"}
+              </Link>
+              <Link
+                href="/daftar-alumni"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  pathname.startsWith('/daftar-alumni')
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                }`}
+              >
+                {lang === "ID" ? "Daftar Alumni" : "Directory"}
+              </Link>
+              <Link
+                href="/maintenance"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  pathname.startsWith('/maintenance')
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                }`}
+              >
+                {lang === "ID" ? "Layanan Portal" : "Portal Services"}
+              </Link>
             </div>
-          </nav>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
