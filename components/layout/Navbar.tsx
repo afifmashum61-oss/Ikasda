@@ -408,7 +408,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute left-1/2 -translate-x-1/2 xl:-left-20 xl:translate-x-0 top-full mt-3 w-[480px] sm:w-[520px] rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
+                  className="absolute right-0 top-full mt-3 w-[min(90vw,520px)] rounded-3xl border border-slate-200/80 bg-white/95 p-5 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900/95 backdrop-blur-xl z-50"
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3 dark:border-zinc-800">
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-500 flex items-center gap-1.5">
@@ -420,7 +420,7 @@ export default function Navbar() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {featureGridItems.map((item, idx) => {
                       const Icon = item.icon;
                       return (
@@ -473,10 +473,14 @@ export default function Navbar() {
           <div className="relative" ref={categoryRef}>
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 transition-colors"
+              className="flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-100 px-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 transition-colors"
               aria-label="Toggle Language"
             >
-              <Globe className="h-4 w-4" />
+              <span className="text-sm" role="img" aria-label={lang}>
+                {lang === "ID" ? "🇮🇩" : "🇬🇧"}
+              </span>
+              <span>{lang}</span>
+              <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isLangOpen ? "rotate-180" : ""}`} />
             </button>
 
             {/* Language Dropdown */}
@@ -486,19 +490,39 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute right-0 mt-2 w-24 rounded-xl border border-slate-200 bg-white shadow-lg dark:border-zinc-800 dark:bg-zinc-900 z-50"
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="absolute right-0 mt-2 w-36 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-zinc-800 dark:bg-zinc-900 z-50 overflow-hidden"
                 >
                   <button
-                    onClick={() => { setLang("ID"); setIsLangOpen(false); }}
-                    className={`w-full px-4 py-2 text-sm text-left ${lang === "ID" ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400" : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"} transition-colors`}
+                    type="button"
+                    onClick={() => {
+                      setLang("ID");
+                      setIsLangOpen(false);
+                    }}
+                    className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-left transition-colors ${
+                      lang === "ID"
+                        ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-bold"
+                        : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                    }`}
                   >
-                    Indonesia
+                    <span className="text-base">🇮🇩</span>
+                    <span>Indonesia</span>
                   </button>
+
                   <button
-                    onClick={() => { setLang("EN"); setIsLangOpen(false); }}
-                    className={`w-full px-4 py-2 text-sm text-left ${lang === "EN" ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400" : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"} transition-colors`}
+                    type="button"
+                    onClick={() => {
+                      setLang("EN");
+                      setIsLangOpen(false);
+                    }}
+                    className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-left transition-colors ${
+                      lang === "EN"
+                        ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-bold"
+                        : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                    }`}
                   >
-                    English
+                    <span className="text-base">🇬🇧</span>
+                    <span>English</span>
                   </button>
                 </motion.div>
               )}
@@ -520,67 +544,127 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="lg:hidden border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl lg:hidden"
           >
-            <div className="flex flex-col gap-1 p-4">
+            <div className="flex flex-col gap-1 p-4 max-h-[80vh] overflow-y-auto">
+              {/* Beranda */}
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
                   pathname === '/'
-                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-semibold"
                     : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
               >
                 {lang === "ID" ? "Beranda" : "Home"}
               </Link>
+
+              {/* Profil */}
               <Link
                 href="/profile"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
                   pathname.startsWith('/profile')
-                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-semibold"
                     : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
               >
                 {lang === "ID" ? "Profil" : "Profile"}
               </Link>
+
+              {/* Agenda & Berita */}
               <Link
                 href="/agenda"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
                   pathname.startsWith('/agenda')
-                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-semibold"
                     : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
               >
                 {lang === "ID" ? "Agenda & Berita" : "News & Events"}
               </Link>
+
+              {/* Daftar Alumni */}
               <Link
                 href="/daftar-alumni"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
                   pathname.startsWith('/daftar-alumni')
-                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 font-semibold"
                     : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
               >
                 {lang === "ID" ? "Daftar Alumni" : "Directory"}
               </Link>
-              <Link
-                href="/maintenance"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
-                  pathname.startsWith('/maintenance')
-                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
-                    : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                }`}
-              >
-                {lang === "ID" ? "Layanan Portal" : "Portal Services"}
-              </Link>
+
+              {/* Layanan Portal Accordion */}
+              <div className="mt-1 border-t border-slate-100 pt-2 dark:border-zinc-800/60">
+                <button
+                  type="button"
+                  onClick={() => setIsLayananOpen(!isLayananOpen)}
+                  className={`flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
+                    isLayananOpen
+                      ? "bg-amber-50/70 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
+                      : "text-slate-700 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Grid className="h-4 w-4 text-amber-600 dark:text-amber-500" />
+                    <span className="font-semibold">{lang === "ID" ? "Layanan Portal" : "Portal Services"}</span>
+                  </div>
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isLayananOpen ? "rotate-180 text-amber-600" : ""}`} />
+                </button>
+
+                {/* Expanded Items Layanan Portal */}
+                <AnimatePresence>
+                  {isLayananOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden pl-3 pr-1 pt-1.5 flex flex-col gap-1.5"
+                    >
+                      {featureGridItems.map((item, idx) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={idx}
+                            href={item.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/60 p-2.5 transition-all hover:bg-amber-50/50 dark:border-zinc-800/70 dark:bg-zinc-800/30 dark:hover:bg-amber-950/20"
+                          >
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400">
+                              <Icon className="h-3.5 w-3.5" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-200 truncate">
+                                  {item.title}
+                                </h4>
+                                {item.badge && (
+                                  <span className="rounded-full bg-amber-500/20 px-1.5 py-0.2 text-[8px] font-extrabold text-amber-700 dark:text-amber-400">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-[10px] text-slate-500 dark:text-zinc-400 truncate">
+                                {item.desc}
+                              </p>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
