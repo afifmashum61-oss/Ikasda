@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { 
   MapPin, 
   Phone, 
@@ -13,6 +14,24 @@ import {
 } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Route Publik Utama
+  const mainRoutes = [
+    { name: "Beranda", href: "/" },
+    { name: "Profil Pesantren", href: "/profile" },
+    { name: "Agenda & Berita", href: "/agenda" },
+    { name: "Daftar Alumni", href: "/daftar-alumni" },
+  ];
+
+  // Route Layanan Alumni & Fitur Portal
+  const serviceRoutes = [
+    { name: "Registrasi Alumni", href: "/alumni/register" },
+    { name: "Portal Karir & Loker", href: "/karir" },
+    { name: "Kemitraan Usaha Alumni", href: "/umkm" },
+    { name: "Donasi & Infaq", href: "/donasi" },
+  ];
+
   return (
     <footer className="relative w-full bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-8 overflow-hidden">
       
@@ -29,7 +48,7 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <div className="relative h-11 w-11 overflow-hidden rounded-2xl border border-amber-500/30 bg-amber-500/10 p-1">
                 <Image
-                  src="/assets/img/logo-ikasda.png"
+                  src="/logo-ikasda.png"
                   alt="Logo IKASDA"
                   width={44}
                   height={44}
@@ -46,11 +65,11 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-xs text-slate-400 leading-relaxed pt-2">
+            <p className="text-xs text-slate-400 leading-relaxed pt-1">
               Wadah silaturahmi, sinergi keilmuan, dan kolaborasi alumni Pondok Pesantren Darussalam Ngesong Jombang di seluruh pelosok daerah dan mancanegara.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-1">
               <span className="inline-flex items-center gap-2 rounded-full bg-amber-950/60 px-3.5 py-1.5 text-[11px] font-bold text-amber-400 border border-amber-800/50">
                 <Sparkles className="h-3.5 w-3.5 text-amber-500" />
                 Terdata 5.400+ Alumni di 18 Korda
@@ -58,69 +77,102 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Kolom 2: Navigasi Cepat (3 Kolom) */}
+          {/* Kolom 2: Navigasi Utama (3 Kolom) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">
-              Navigasi Portal
+              Navigasi Utama
             </h4>
-            <ul className="space-y-2 text-xs">
-              {[
-                { name: "Beranda Utama", href: "#beranda" },
-                { name: "Profil Pesantren & IKASDA", href: "#profil" },
-                { name: "Struktur Pengurus Masa ke Masa", href: "#pengurus" },
-                { name: "Agenda & Berita Terbaru", href: "#agenda-berita" },
-                { name: "Direktori Alumni & Santri", href: "#daftar-alumni" },
-              ].map((link, idx) => (
-                <li key={idx}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex items-center gap-1.5 text-slate-400 hover:text-amber-400 transition-colors"
-                  >
-                    <ChevronRight className="h-3 w-3 text-amber-500" />
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2.5 text-xs">
+              {mainRoutes.map((link, idx) => {
+                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+                return (
+                  <li key={idx}>
+                    <Link
+                      href={link.href}
+                      className={`inline-flex items-center gap-1.5 transition-colors ${
+                        isActive
+                          ? "text-amber-400 font-semibold"
+                          : "text-slate-400 hover:text-amber-400"
+                      }`}
+                    >
+                      <ChevronRight className={`h-3 w-3 ${isActive ? "text-amber-400" : "text-amber-500/70"}`} />
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          {/* Kolom 3: Kontak & Sekretariat (5 Kolom) */}
-          <div className="lg:col-span-5 space-y-3">
+          {/* Kolom 3: Layanan Portal (2 Kolom) */}
+          <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">
-              Sekretariat & Informasi
+              Layanan Portal
+            </h4>
+            <ul className="space-y-2.5 text-xs">
+              {serviceRoutes.map((link, idx) => {
+                const isActive = pathname.startsWith(link.href);
+                return (
+                  <li key={idx}>
+                    <Link
+                      href={link.href}
+                      className={`inline-flex items-center gap-1.5 transition-colors ${
+                        isActive
+                          ? "text-amber-400 font-semibold"
+                          : "text-slate-400 hover:text-amber-400"
+                      }`}
+                    >
+                      <ChevronRight className={`h-3 w-3 ${isActive ? "text-amber-400" : "text-amber-500/70"}`} />
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Kolom 4: Sekretariat & Kontak (3 Kolom) */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">
+              Sekretariat Pusat
             </h4>
             <ul className="space-y-3 text-xs">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  Pondok Pesantren Darussalam Ngesong, Sengon, Kec. Jombang, Kabupaten Jombang, Jawa Timur 61418.
+                <span className="leading-relaxed text-slate-400">
+                  PP. Darussalam Ngesong, Sengon, Kec. Jombang, Kab. Jombang, Jawa Timur 61418.
                 </span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-amber-500 shrink-0" />
-                <span>+62 812-3456-7890 (Humas IKASDA Pusat)</span>
+                <a href="tel:+6281234567890" className="hover:text-amber-400 transition-colors">
+                  +62 812-3456-7890 (Humas)
+                </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 text-amber-500 shrink-0" />
-                <span>sekretariat@ikasdajombang.or.id</span>
+                <a href="mailto:sekretariat@ikasdangesong.com" className="hover:text-amber-400 transition-colors">
+                  sekretariat@ikasdangesong.com
+                </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2.5">
                 <Globe className="h-4 w-4 text-amber-500 shrink-0" />
-                <span>www.ikasdajombang.or.id</span>
+                <a href="https://ikasdangesong.com" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">
+                  ikasdangesong.com
+                </a>
               </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Bottom Bar Copyright & Subtle SEO Credit Link */}
+        {/* Bottom Bar Copyright & Developer Credit */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p className="text-center sm:text-left">
-            &copy; 2026 <strong className="text-slate-300">IKASDA Jombang</strong> — PP. Darussalam Ngesong. Hak Cipta Dilindungi.
+          &copy; 1985 - {new Date().getFullYear()} <strong className="text-slate-300">IKASDA Jombang</strong> — PP. Darussalam Ngesong. Hak Cipta Dilindungi.
           </p>
 
-          {/* Kredit Tautan SEO Lembut & Elegan (Aman di-crawl Google SEO) */}
-          <div className="flex items-center gap-1 text-[11px] text-slate-600 dark:text-zinc-500">
+          <div className="flex items-center gap-1 text-[11px] text-slate-500">
             <span>Developed with</span>
             <Heart className="h-3 w-3 text-red-500 fill-current" />
             <span>by</span>
@@ -128,7 +180,7 @@ export default function Footer() {
               href="https://deltapytech.my.id"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-amber-500 transition-colors font-medium underline-offset-2 hover:underline"
+              className="text-slate-400 hover:text-amber-500 transition-colors font-medium underline-offset-2 hover:underline"
               title="DeltaPy Tech - Software & Web Development Solution"
             >
               DeltaPy Tech
